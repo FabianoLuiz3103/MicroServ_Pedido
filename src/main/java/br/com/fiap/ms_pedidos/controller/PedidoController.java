@@ -4,6 +4,7 @@ import br.com.fiap.ms_pedidos.dto.PedidoDTO;
 import br.com.fiap.ms_pedidos.service.PedidoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,6 +18,14 @@ public class PedidoController {
 
     @Autowired
     private PedidoService pedidoService;
+
+    // testando a distribuição de carga
+    // devolve a porta de instância que está rodando
+    @GetMapping("/port")
+    public ResponseEntity<String> getPort(@Value("${local.server.port}") String port){
+        String map = String.format("Requisição da instância recebida na porta: %s", port);
+        return ResponseEntity.ok(map);
+    }
 
     @PostMapping
     public ResponseEntity<PedidoDTO> insert(
